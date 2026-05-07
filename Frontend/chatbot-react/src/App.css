@@ -1,0 +1,532 @@
+/* =========================================================
+   RESET GENERAL
+========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, #1a1a1a 0%, transparent 40%),
+    #0a0a0a;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
+.parent {
+  display: grid;
+  height: 100dvh;
+  min-height: 100dvh;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  overflow: hidden;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.parent.sidebar-open {
+  grid-template-columns: 250px 1fr;
+}
+
+.parent.sidebar-closed {
+  grid-template-columns: 60px 1fr;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+.div1 {
+  min-height: 0;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 12px;
+  overflow: hidden;
+
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(80, 80, 80, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+
+  transition: all 0.3s ease;
+}
+
+.toggle-btn {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(60, 60, 60, 0.6);
+  border: 1px solid rgba(100, 100, 100, 0.4);
+  border-radius: 8px;
+
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.toggle-btn:hover {
+  background: rgba(90, 90, 90, 0.6);
+}
+
+.sidebar-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.sidebar-titulo {
+  color: #aaaaaa;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-lista li {
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  color: #cccccc;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.sidebar-lista li:hover {
+  background: rgba(70, 70, 70, 0.5);
+  border-color: rgba(100, 100, 100, 0.4);
+  color: white;
+}
+
+
+/* =========================================================
+   COLUMNA DERECHA DEL CHAT
+========================================================= */
+.columna-derecha {
+  height: calc(100dvh - 20px);
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  overflow: hidden;
+  padding: 0;
+}
+
+
+/* =========================================================
+   NAVBAR DEL CHAT
+========================================================= */
+.chat-navbar {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 6px 12px;
+}
+
+.chat-titulo {
+  color: #eeeeee;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.btn-compartir {
+  padding: 6px 14px;
+
+  background: rgba(60, 60, 60, 0.6);
+  border: 1px solid rgba(100, 100, 100, 0.4);
+  border-radius: 8px;
+
+  color: #cccccc;
+  font-size: 13px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-compartir:hover {
+  background: rgba(90, 90, 90, 0.6);
+  color: white;
+}
+
+
+/* =========================================================
+   ÁREA DE MENSAJES
+========================================================= */
+.div2 {
+  flex: 1 1 auto;
+  height: 0;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: rgba(15, 15, 15, 0.8);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.chat-box {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.chat-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+.mensaje-wrapper {
+  width: 100%;
+  max-width: 750px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.mensaje-wrapper.usuario {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.mensaje-wrapper.bot {
+  align-self: flex-start;
+  justify-content: flex-start;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  margin-top: 2px;
+
+  border-radius: 50%;
+  border: 2px solid rgba(100, 100, 100, 0.5);
+
+  object-fit: cover;
+}
+
+.mensaje {
+  max-width: 85%;
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.mensaje.usuario {
+  background: #2f2f2f;
+  border: 1px solid rgba(100, 100, 100, 0.3);
+  color: white;
+}
+
+.mensaje.bot {
+  background: #1c1c1c;
+  border: 1px solid rgba(80, 80, 80, 0.3);
+  color: #e0e0e0;
+}
+
+
+/* =========================================================
+   INPUT DEL CHAT
+========================================================= */
+.div3 {
+  flex: 0 0 auto;
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  padding: 0 0 4px;
+}
+
+.input-wrapper {
+  width: 100%;
+  max-width: 950px;
+
+  display: flex;
+  gap: 10px;
+
+  padding: 8px 12px;
+
+  background: rgba(25, 25, 25, 0.95);
+  border: 1px solid rgba(80, 80, 80, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.input-chat {
+  flex: 1;
+
+  padding: 10px 12px;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: white;
+  font-size: 14px;
+}
+
+.input-chat::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.button {
+  padding: 10px 20px;
+
+  background: #2f2f2f;
+  border: 1px solid rgba(100, 100, 100, 0.4);
+  border-radius: 8px;
+
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background: #3f3f3f;
+  transform: scale(1.03);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.aviso-ia {
+  width: 100%;
+  max-width: 950px;
+  margin: 0;
+
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================================
+   PANTALLA DE BIENVENIDA
+========================================================= */
+.bienvenida {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  padding: 40px 20px;
+
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.bienvenida h2 {
+  color: #dddddd;
+  font-size: 28px;
+}
+
+.bienvenida p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 15px;
+}
+
+.buho-bienvenida {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+  border: 3px solid rgba(100, 100, 100, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+
+  object-fit: cover;
+
+  animation: pulseGlow 2s infinite;
+}
+
+.glow-text {
+  color: #dddddd;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  animation: pulseGlow 2s infinite;
+}
+
+
+/* =========================================================
+   PREGUNTAS RÁPIDAS
+========================================================= */
+.preguntas-rapidas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.pregunta-btn {
+  padding: 8px 16px;
+
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(90, 90, 90, 0.4);
+  border-radius: 20px;
+
+  color: #cccccc;
+  font-size: 13px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pregunta-btn:hover {
+  background: rgba(70, 70, 70, 0.8);
+  color: white;
+  transform: scale(1.03);
+}
+
+
+/* =========================================================
+   INDICADOR DE ESCRIBIENDO
+========================================================= */
+.escribiendo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 10px 14px;
+}
+
+.escribiendo span {
+  width: 8px;
+  height: 8px;
+
+  background-color: #888;
+  border-radius: 50%;
+
+  animation: bounce 1.2s infinite ease-in-out;
+}
+
+.escribiendo span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.escribiendo span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.escribiendo span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+
+/* =========================================================
+   ANIMACIONES
+========================================================= */
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

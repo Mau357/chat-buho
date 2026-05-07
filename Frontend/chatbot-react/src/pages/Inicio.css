@@ -1,0 +1,230 @@
+
+  .hero {
+  height: 100vh;
+
+  background-image: url("../assets/portadaBuho.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+ position: relative;
+  color: white;
+}
+.imagenLogo {
+  width: 180px;
+}
+
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px; /* 🔥 separación bonita */
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.nav-actions button {
+  margin-left: 10px;
+}
+
+/* CONTENIDO PRINCIPAL */
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80%;
+}
+
+/* TEXTO */
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-size: 60px;
+}
+
+.hero-text span {
+  font-style: italic;
+}
+
+
+
+
+.cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 10px 20px; 
+
+  background-color: transparent;
+  color: #fff;
+  border: #3654ff 0.2em solid;
+  border-radius: 11px;
+  transition: all 0.6s ease;
+}
+
+
+
+.cta:hover {
+  background-color: #3654ff;
+  cursor: pointer;
+}
+
+.cta svg {
+  width: 1.2em;
+  transition: transform 0.6s ease;
+  display: block; 
+}
+
+
+.cta:hover svg {
+  transform: translateX(10px);
+}
+
+.text {
+  margin: 0; 
+}
+
+
+.quejas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  position: relative;
+  padding: 0 20px;
+  font-size: 18px;
+  text-transform: uppercase;
+  border: 0;
+  box-shadow: hsl(211, 69%, 75%) 0px 7px 0px 0px;
+  background-color: hsl(211, 62%, 83%);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* TEXTO INICIAL */
+.quejas::before {
+  content: attr(data-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: rgb(10, 8, 8);
+  letter-spacing: 2px;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* CLICK */
+.quejas:active {
+  box-shadow: none;
+  transform: translateY(7px);
+}
+
+/* OCULTAR TEXTO */
+.quejas:hover::before {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* LETRAS */
+.quejas i {
+  color: rgb(10, 7, 7);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-style: normal;
+  transition: all 0.3s ease;
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+/* APARECER */
+.quejas:hover i {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* DELAYS */
+.quejas:hover i:nth-child(1) { transition-delay: 0.05s; }
+.quejas:hover i:nth-child(2) { transition-delay: 0.1s; }
+.quejas:hover i:nth-child(3) { transition-delay: 0.15s; }
+.quejas:hover i:nth-child(4) { transition-delay: 0.2s; }
+.quejas:hover i:nth-child(5) { transition-delay: 0.25s; }
+.quejas:hover i:nth-child(6) { transition-delay: 0.3s; }
+.btn2 {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #fff;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* CAPA 1 */
+.btn2::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 6px);
+  height: calc(100% + 2px);
+  background-color: #212121;
+  transition: 0.3s ease-out;
+  z-index: 1;
+
+  transform: translateY(-100%); /* 🔥 oculto */
+}
+
+/* CAPA 2 */
+.btn2::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% - 50%);
+  background-color: #212121;
+  transition: 0.3s ease-out;
+  z-index: 1;
+
+  transform: scaleX(0); /* 🔥 oculto */
+}
+
+/* HOVER */
+.btn2:hover::before {
+  transform: translateY(0);
+}
+
+.btn2:hover::after {
+  transform: scaleX(1);
+  transition-delay: 0.15s;
+}
+
+/* TEXTO */
+.spn2 {
+  position: relative;
+  z-index: 2;
+}

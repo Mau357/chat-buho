@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from ..services.groq_service import generar_sql, formatear_respuesta
-from ..database.conection import ejecutar_query
+from ..database.conection import ejecutar_query, guardar_sin_respuesta
 
 router = APIRouter()
 
@@ -24,7 +24,12 @@ def chat(mensaje: Mensaje):
     except Exception as e:
         return {"respuesta": f"Error al consultar la base de datos: {str(e)}"}
 
-    # 4. Formatear respuesta en lenguaje natural
+    # 4. Si no hay resultados, guardar en PreguntasSinRespuesta
+    if not datos:
+        guardar_sin_respuesta(mensaje.texto)
+        return {"respuesta": "Lo siento, no encontré información sobre eso. Tu pregunta ha sido registrada para mejorar el sistema. 🦉"}
+
+    # 5. Formatear respuesta en lenguaje natural
     try:
         respuesta_natural = formatear_respuesta(mensaje.texto, datos)
     except Exception as e:

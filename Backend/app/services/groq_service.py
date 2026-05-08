@@ -634,20 +634,13 @@ WHERE categoria = 'Inglés'
 """
 
 
-# =========================
-# API
-# =========================
 def _llamar_groq(
     messages: list,
     temperature: float = 0.1,
     max_tokens: int = 500,
     mostrar_proveedor: bool = False
-) -> str:
-    """
-    Primero intenta usar Groq.
-    Si Groq llega al límite 429, usa OpenAI automáticamente.
-    Si mostrar_proveedor=True, agrega una etiqueta indicando quién respondió.
-    """
+) -> tuple:
+    """Retorna (texto, tokens_usados)"""
 
     # =========================
     # 1. INTENTAR CON GROQ
@@ -657,7 +650,6 @@ def _llamar_groq(
             "Authorization": f"Bearer {GROQ_API_KEY}",
             "Content-Type": "application/json"
         }
-
         body_groq = {
             "model": MODEL,
             "messages": messages,
@@ -668,12 +660,14 @@ def _llamar_groq(
         response = requests.post(GROQ_URL, headers=headers_groq, json=body_groq)
 
         if response.ok:
-            respuesta = response.json()["choices"][0]["message"]["content"].strip()
+            data = response.json()
+            respuesta = data["choices"][0]["message"]["content"].strip()
+            tokens = data["usage"]["total_tokens"]  # ← Groq retorna esto
 
             if mostrar_proveedor:
-                return "[Groq]\n" + respuesta
+                return "[Groq]\n" + respuesta, tokens
 
-            return respuesta
+            return respuesta, tokens
 
         if response.status_code == 429:
             print("Groq llegó al límite. Usando OpenAI...")
@@ -692,7 +686,6 @@ def _llamar_groq(
         "Authorization": f"Bearer {OPENAI_API_KEY}",
         "Content-Type": "application/json"
     }
-
     body_openai = {
         "model": OPENAI_MODEL,
         "messages": messages,
@@ -707,12 +700,14 @@ def _llamar_groq(
         print(response.text)
         response.raise_for_status()
 
-    respuesta = response.json()["choices"][0]["message"]["content"].strip()
+    data = response.json()
+    respuesta = data["choices"][0]["message"]["content"].strip()
+    tokens = data["usage"]["total_tokens"]  # ← OpenAI también retorna esto
 
     if mostrar_proveedor:
-        return "[ChatGPT]\n" + respuesta
+        return "[ChatGPT]\n" + respuesta, tokens
 
-    return respuesta
+    return respuesta, tokens
 
 
 # =========================
@@ -755,28 +750,34 @@ def validar_sql_select(sql: str) -> str:
     return sql_limpio
 
 
-# =========================
-# GENERAR SQL
-# =========================
-def generar_sql(texto: str) -> str:
+def generar_sql(texto: str) -> tuple:
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": texto}
     ]
+    sql, tokens = _llamar_groq(messages, temperature=0.1, max_tokens=300, mostrar_proveedor=False)
+    sql = sql.replace("```sql", "").replace("```", "").strip()
+    return sql, tokens
 
-    sql = _llamar_groq(
-        messages,
-        temperature=0.1,
-        max_tokens=300,
-        mostrar_proveedor=False
-    )
 
-    return (
-        sql.replace("```sql", "")
-           .replace("```", "")
-           .strip()
-    )
-
+def formatear_respuesta(pregunta: str, datos: list) -> tuple:
+    messages = [
+        {
+            "role": "system",
+            "content": """Eres un asistente amable de un instituto tecnológico llamado Chat Búho.
+Convierte resultados de base de datos en respuestas claras y naturales en español.
+No muestres JSON ni datos crudos.
+Responde de forma conversacional y útil.
+Si los datos están vacíos, indica amablemente que no encontraste información.
+"""
+        },
+        {
+            "role": "user",
+            "content": f"Pregunta del usuario: {pregunta}\n\nDatos:\n{datos}"
+        }
+    ]
+    respuesta, tokens = _llamar_groq(messages, temperature=0.4, max_tokens=500)
+    return respuesta, tokens
 
 # =========================
 # DETECTAR SI NO HAY DATOS
@@ -820,43 +821,3 @@ def respuesta_sin_datos(pregunta: str) -> str:
     )
 
 
-# =========================
-# RESPUESTA NATURAL
-# =========================
-
-def formatear_respuesta(pregunta: str, datos: list) -> str:
-    if es_respuesta_sin_datos(datos):
-        return respuesta_sin_datos(pregunta)
-
-    messages = [
-        {
-            "role": "system",
-            "content": """
-Eres un asistente escolar.
-
-Reglas obligatorias
-
-1. Responde únicamente usando los datos proporcionados.
-2. No inventes información.
-3. No recomiendes nada que no aparezca en los datos.
-4. No des consejos generales.
-5. No menciones procesos, departamentos, teléfonos, correos o fechas que no aparezcan en los datos.
-6. No uses frases como "te recomiendo", "generalmente", "normalmente" o "en la mayoría de casos".
-7. Si los datos contienen una respuesta directa, responde de forma breve y clara.
-8. Responde en español.
-9. Si los datos son requisitos, preséntalos como lista.
-10. Si los datos tienen departamento, horario, correo o teléfono, inclúyelos solo si vienen en los datos.
-"""
-        },
-        {
-            "role": "user",
-            "content": f"Pregunta del usuario: {pregunta}\nDatos encontrados: {datos}"
-        }
-    ]
-
-    return _llamar_groq(
-        messages,
-        temperature=0.0,
-        max_tokens=350,
-        mostrar_proveedor=True
-    )

@@ -9,7 +9,27 @@ function Chat() {
   const [mensajes, setMensajes] = useState([]);
   const [escribiendo, setEscribiendo] = useState(false);
   const [sidebarAbierto, setSidebarAbierto] = useState(false);
-const [temaActivo, setTemaActivo] = useState('dark');
+  const [temaActivo, setTemaActivo] = useState('dark');
+  const [ripple, setRipple] = useState(null); // { x, y, tema }
+
+
+const cambiarTema = (tema, e) => {
+  
+  setTemaActivo(tema);
+
+  
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = rect.left + rect.width / 2;
+  const y = rect.top + rect.height / 2;
+
+  
+  setRipple({ x, y, tema });
+
+  
+  setTimeout(() => {
+    setRipple(null);
+  }, 600);
+};
 
   const preguntasRapidas = [
     "¿Cuáles son los requisitos para tener un psicólogo?",
@@ -53,8 +73,12 @@ const [temaActivo, setTemaActivo] = useState('dark');
     );
   };
 
+  
   return (
-    <div className={`parent ${sidebarAbierto ? "sidebar-open" : "sidebar-closed"}`}>
+  <div
+    className={`parent ${sidebarAbierto ? "sidebar-open" : "sidebar-closed"}`}
+    data-tema={temaActivo}
+  >
       {/* SIDEBAR */}
       <div
   className={`div1 ${sidebarAbierto ? "abierto" : "cerrado"}`}
@@ -73,10 +97,9 @@ const [temaActivo, setTemaActivo] = useState('dark');
  {sidebarAbierto && (
   <div className="sidebar-contenido">
     <div className="temas">
-      <button className={`tema-btn ${temaActivo === 'light' ? 'activo' : ''}`} onClick={() => setTemaActivo('light')}>☀︎ Light</button>
-      <button className={`tema-btn ${temaActivo === 'dark' ? 'activo' : ''}`} onClick={() => setTemaActivo('dark')}>❄︎ Dark</button>
-      <button className={`tema-btn ${temaActivo === 'black' ? 'activo' : ''}`} onClick={() => setTemaActivo('black')}>☁︎ Black</button>
-    </div>
+      <button className={`tema-btn ${temaActivo === 'light' ? 'activo' : ''}`} onClick={(e) => cambiarTema('light', e)}>Light</button>
+<button className={`tema-btn ${temaActivo === 'dark' ? 'activo' : ''}`} onClick={(e) => cambiarTema('dark', e)}>Purple</button>
+<button className={`tema-btn ${temaActivo === 'black' ? 'activo' : ''}`} onClick={(e) => cambiarTema('black', e)}>Black</button> </div>
 
     <ul className="sidebar-lista">
       <li>Documentos</li>
@@ -87,6 +110,7 @@ const [temaActivo, setTemaActivo] = useState('dark');
     </ul>
   </div>
 )}
+
 </div>
      
       
@@ -176,6 +200,21 @@ const [temaActivo, setTemaActivo] = useState('dark');
           </p>
         </div>
       </div>
+      {ripple && (
+  <div
+    className="ripple-overlay"
+    style={{
+      left: ripple.x,
+      top: ripple.y,
+      '--ripple-color':
+        ripple.tema === 'light'
+          ? 'rgba(255,255,255,0.85)'
+          : ripple.tema === 'dark'
+          ? 'rgba(140,120,255,0.95)'
+          : 'rgba(0,0,0,0.95)',
+    }}
+  />
+)}
     </div>
   );
 }

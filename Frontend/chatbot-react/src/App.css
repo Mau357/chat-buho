@@ -640,3 +640,542 @@ body {
   background: linear-gradient(145deg, #2a2a2a, #000000);
   color: #ffffff;
 } 
+/* =========================================================
+   RIPPLE GLOBAL INTENSIDAD MEDIA
+========================================================= */
+
+.ripple-overlay {
+  position: fixed;
+
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: 999999;
+
+  background:
+    radial-gradient(
+      circle,
+      var(--ripple-color) 0%,
+      rgba(255,255,255,0.6) 35%,
+      rgba(255,255,255,0.6) 60%,
+      transparent 80%
+    );
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  animation:
+    ripple-expand 0.65s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+
+  0% {
+    transform:
+      translate(-50%, -50%)
+      scale(0);
+
+    opacity: 0.75;
+  }
+
+  100% {
+    transform:
+      translate(-50%, -50%)
+      scale(40);
+
+    opacity: 0;
+  }
+}
+/* =========================================================
+   TEMA DARK — ULTRALUME PURPLE (VERSIÓN FINAL UNIFICADA)
+========================================================= */
+
+[data-tema="dark"] {
+
+  /* ======================================================
+     RIPPLE EFFECT
+  ====================================================== */
+  --ripple-color: rgba(124, 92, 255, 0.40);
+
+  /* ======================================================
+     PALETA DE COLORES
+  ====================================================== */
+  --bg-main: #05040a;
+  --bg-panel: #0d0a1a;
+  --bg-messages: #0f0b1e;
+
+  /* Mensajes */
+  --msg-bot: rgba(34, 26, 51, 0.6);
+  --msg-user: rgba(124, 92, 255, 0.15);
+
+  /* Acentos */
+  --accent: #7c5cff;
+  --accent-glow: #9a7cff;
+  --accent-bright: #d0c4ff;
+
+  /* Texto */
+  --text-main: #f2efff;
+  --text-secondary: #b8b1e6;
+  --text-muted: #6e66a3;
+
+  /* ======================================================
+     FONDO GENERAL
+  ====================================================== */
+  background-color: var(--bg-main) !important;
+
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(124, 92, 255, 0.05) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(154, 124, 255, 0.05) 0%,
+      transparent 40%
+    ) !important;
+
+  color: var(--text-main) !important;
+
+  transition:
+    background-color 0.3s ease,
+    background-image 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   COMPONENTES ESPECÍFICOS (DARK)
+========================================================= */
+
+/* Sidebar e Input */
+[data-tema="dark"] .div1,
+[data-tema="dark"] .input-wrapper {
+  background-color: var(--bg-panel) !important;
+
+  border: 1px solid rgba(124, 92, 255, 0.2) !important;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(124, 92, 255, 0.05) !important;
+}
+
+
+/* =========================================================
+   ÁREA DE MENSAJES
+========================================================= */
+
+[data-tema="dark"] .div2 {
+  position: relative;
+
+  background-color: var(--bg-messages) !important;
+
+  border: 1px solid rgba(124, 92, 255, 0.1) !important;
+
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.8) !important;
+
+  overflow: hidden;
+}
+
+/* Glow decorativo */
+[data-tema="dark"] .div2::before {
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -50%;
+
+  width: 200%;
+  height: 200%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(124, 92, 255, 0.03) 0%,
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+[data-tema="dark"] .mensaje {
+  line-height: 1.65;
+  border-radius: 16px;
+}
+
+[data-tema="dark"] .mensaje.bot {
+  background-color: var(--msg-bot) !important;
+
+  border: 1px solid rgba(124, 92, 255, 0.15) !important;
+
+  color: var(--text-main) !important;
+
+  backdrop-filter: blur(4px);
+}
+
+[data-tema="dark"] .mensaje.usuario {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 92, 255, 0.2),
+      rgba(69, 44, 160, 0.2)
+    ) !important;
+
+  border: 1px solid rgba(154, 124, 255, 0.4) !important;
+
+  box-shadow:
+    0 0 20px rgba(124, 92, 255, 0.1) !important;
+
+  color: #ffffff !important;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+[data-tema="dark"] .button {
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      #5a3ecf
+    ) !important;
+
+  color: #ffffff !important;
+
+  border: none !important;
+
+  box-shadow:
+    0 0 15px rgba(124, 92, 255, 0.4) !important;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+[data-tema="dark"] .button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.2);
+
+  box-shadow:
+    0 0 25px rgba(124, 92, 255, 0.6) !important;
+}
+
+
+/* =========================================================
+   PREGUNTAS RÁPIDAS
+========================================================= */
+
+[data-tema="dark"] .pregunta-btn {
+  background-color:
+    rgba(30, 24, 48, 0.5) !important;
+
+  border:
+    1px solid rgba(124, 92, 255, 0.3) !important;
+
+  color: var(--text-secondary) !important;
+}
+
+[data-tema="dark"] .pregunta-btn:hover {
+  background-color: var(--accent) !important;
+
+  color: #000 !important;
+
+  box-shadow:
+    0 0 15px var(--accent) !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+[data-tema="dark"] .chat-box::-webkit-scrollbar-thumb {
+  background: var(--accent) !important;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 10px var(--accent) !important;
+}
+
+
+/* =========================================================
+   AVISO IA
+========================================================= */
+
+[data-tema="dark"] .aviso-ia {
+  color: var(--text-muted) !important;
+}
+
+/* =========================================================
+   TEMA LIGHT — SOFT GLASS
+========================================================= */
+
+[data-tema="light"] {
+
+  /* ======================================================
+     COLORES PRINCIPALES
+  ====================================================== */
+
+  --bg-main: #f4f6fb;
+  --bg-panel: rgba(255, 255, 255, 0.75);
+  --bg-messages: rgba(255, 255, 255, 0.55);
+
+  --msg-bot: rgba(255, 255, 255, 0.72);
+  --msg-user: rgba(220, 228, 255, 0.95);
+
+  --accent: #6f8cff;
+  --accent-soft: #dbe4ff;
+
+  --text-main: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #7b8190;
+
+  /* ======================================================
+     FONDO GENERAL
+  ====================================================== */
+
+  background-color: var(--bg-main);
+
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(111, 140, 255, 0.08) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(180, 200, 255, 0.12) 0%,
+      transparent 40%
+    );
+
+  color: var(--text-main);
+
+  transition:
+    background-color 0.3s ease,
+    background-image 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   SIDEBAR E INPUT
+========================================================= */
+
+[data-tema="light"] .div1,
+[data-tema="light"] .input-wrapper {
+
+  background: var(--bg-panel);
+
+  border: 1px solid rgba(180, 190, 220, 0.35);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+/* =========================================================
+   CHAT PRINCIPAL
+========================================================= */
+
+[data-tema="light"] .div2 {
+
+  background: var(--bg-messages);
+
+  border: 1px solid rgba(200, 210, 230, 0.3);
+
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.2),
+    0 4px 20px rgba(0,0,0,0.04);
+
+  position: relative;
+}
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+[data-tema="light"] .mensaje {
+  border-radius: 16px;
+  line-height: 1.65;
+}
+
+[data-tema="light"] .mensaje.bot {
+
+  background: var(--msg-bot);
+
+  border: 1px solid rgba(220, 225, 240, 0.8);
+
+  color: var(--text-main);
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.03);
+}
+
+[data-tema="light"] .mensaje.usuario {
+
+  background:
+    linear-gradient(
+      135deg,
+      #dfe7ff,
+      #cdd9ff
+    );
+
+  border:
+    1px solid rgba(111,140,255,0.2);
+
+  color: #1f2937;
+
+  box-shadow:
+    0 2px 12px rgba(111,140,255,0.08);
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+[data-tema="light"] .button {
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c97ff,
+      #5f7fff
+    );
+
+  border: none;
+
+  color: white;
+
+  box-shadow:
+    0 4px 15px rgba(111,140,255,0.25);
+}
+
+[data-tema="light"] .button:hover {
+
+  filter: brightness(1.05);
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 20px rgba(111,140,255,0.35);
+}
+
+
+/* =========================================================
+   BOTONES DE PREGUNTAS
+========================================================= */
+
+[data-tema="light"] .pregunta-btn {
+
+  background:
+    rgba(255,255,255,0.7);
+
+  border:
+    1px solid rgba(180,190,220,0.35);
+
+  color: var(--text-secondary);
+
+  backdrop-filter: blur(8px);
+}
+
+[data-tema="light"] .pregunta-btn:hover {
+
+  background:
+    rgba(111,140,255,0.12);
+
+  color:
+    var(--accent);
+
+  border-color:
+    rgba(111,140,255,0.25);
+}
+
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
+[data-tema="light"] .chat-titulo,
+[data-tema="light"] .glow-text,
+[data-tema="light"] .sidebar-titulo {
+
+  color: var(--text-main);
+}
+
+[data-tema="light"] .aviso-ia {
+
+  color: var(--text-muted);
+}
+
+[data-tema="light"] .input-chat {
+
+  color: var(--text-main);
+}
+
+[data-tema="light"] .input-chat::placeholder {
+
+  color: rgba(0,0,0,0.35);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+[data-tema="light"] .chat-box::-webkit-scrollbar-thumb {
+
+  background:
+    rgba(111,140,255,0.35);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   TEMA BUTTON ACTIVO
+========================================================= */
+
+[data-tema="light"] .tema-btn.activo {
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #e9eeff
+    );
+
+  color: #3045a0;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 2px 10px rgba(111,140,255,0.15);
+}

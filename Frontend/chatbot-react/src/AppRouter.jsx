@@ -9,6 +9,7 @@ function AppRouter() {
 
   return (
     <Routes>
+      
       <Route path="/" element={<Inicio />} />
       <Route path="/chat" element={<Chat />} />
       <Route path="/politicas" element={<Politicas />} />

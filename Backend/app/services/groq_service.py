@@ -381,7 +381,7 @@ WHERE t.tipo LIKE '%Constancia%';
 
 INFORMACIÓN GENERAL:
 Si el usuario pregunta:
-"información", "info", "puedo", "se puede", "qué pasa",
+"información", "info", "puedo", "se puede", "qué pasa", "donde puedo pagar?", "biblioteca",
 "qué hago si", "duda", "explicación", "¿Cuándo puedo empezar el programa Dual?",
 "Tengo problemas psicológicos"
 
@@ -493,6 +493,12 @@ WHERE categoria = 'Inglés'
       OR palabrasClave LIKE '%inglés%'
       OR palabrasClave LIKE '%ingles%'
   );
+
+  Biblioteca:
+  "biblioteca","cuantos dias habiles tengo de prestamo","Si el usuario pregunta donde va a pagar una multa de biblioteca"
+  
+  Usa:
+PreguntasFrecuentes con categoria = 'Biblioteca'
 
 =========================
 SINÓNIMOS IMPORTANTES

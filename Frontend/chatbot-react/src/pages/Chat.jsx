@@ -34,8 +34,8 @@ const cambiarTema = (tema, e) => {
   const preguntasRapidas = [
     "¿Cuáles son los requisitos para tener un psicólogo?",
     "¿Cómo solicito una constancia?",
-    "¿Cuáles son los horarios de atención?",
-    "¿Cómo hago un trámite de beca?",
+    "¿Dónde voy a pagar una multa de biblioteca?",
+    "¿Cuando empieza el programa Dual?",
   ];
 
   const enviar = async (texto) => {

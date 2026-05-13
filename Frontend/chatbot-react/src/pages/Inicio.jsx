@@ -17,9 +17,9 @@ function Inicio() {
       <header className="header">
         <img src={itesiLogo} alt="Logo ITESI" />
         <nav>
-          <button>POLÍTICAS Y CONDICIONES</button>
-          <button>ACERCA DE NOSOTROS</button>
-          <button>SUGERENCIAS</button>
+          <button onClick={() => navigate("/Politicas")}>POLÍTICAS Y CONDICIONES</button>
+          <button onClick={() => navigate("/AcercaDe")}>ACERCA DE NOSOTROS</button>
+          <button onClick={() => navigate("/Sugerencias")}>SUGERENCIAS</button>
         </nav>
       </header>
 

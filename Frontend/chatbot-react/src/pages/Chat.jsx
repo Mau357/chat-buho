@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./Chat.css";
+// En Chat.jsx
+import './Chat.css'
 import { enviarMensaje, calificarRespuesta } from "../api";
 import buho from "../assets/buho_logo.png";
 import Radio from "./Radio";
@@ -75,8 +76,9 @@ const cambiarTema = (tema, e) => {
 
   
   return (
+    
   <div
-    className={`parent ${sidebarAbierto ? "sidebar-open" : "sidebar-closed"}`}
+    className={`pagina-chat parent ${sidebarAbierto ? "sidebar-open" : "sidebar-closed"}`}
     data-tema={temaActivo}
   >
       {/* SIDEBAR */}

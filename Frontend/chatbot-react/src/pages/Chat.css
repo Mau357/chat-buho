@@ -272,6 +272,31 @@
   color: #e0e0e0;
 }
 
+
+.pagina-chat .mensaje {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.pagina-chat .mensaje.bot {
+  line-height: 1.8;
+  letter-spacing: 0.2px;
+  padding: 14px 18px;
+  font-size: 15px;
+}
+
+/* Que no se vea todo comprimido */
+.pagina-chat .mensaje-bloque {
+  max-width: 100%;
+}
+
+/* Mejor lectura */
+.pagina-chat .mensaje.bot {
+  padding: 14px 18px;
+  font-size: 15px;
+}
+
 /* =========================================================
    INPUT
 ========================================================= */

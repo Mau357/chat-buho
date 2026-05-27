@@ -100,8 +100,8 @@ const cambiarTema = (tema, e) => {
   <div className="sidebar-contenido">
     <div className="temas">
       <button className={`tema-btn ${temaActivo === 'light' ? 'activo' : ''}`} onClick={(e) => cambiarTema('light', e)}>Light</button>
-<button className={`tema-btn ${temaActivo === 'dark' ? 'activo' : ''}`} onClick={(e) => cambiarTema('dark', e)}>Purple</button>
-<button className={`tema-btn ${temaActivo === 'black' ? 'activo' : ''}`} onClick={(e) => cambiarTema('black', e)}>Black</button> </div>
+      <button className={`tema-btn ${temaActivo === 'dark' ? 'activo' : ''}`} onClick={(e) => cambiarTema('dark', e)}>Purple</button>
+      <button className={`tema-btn ${temaActivo === 'black' ? 'activo' : ''}`} onClick={(e) => cambiarTema('black', e)}>Black</button> </div>
 
     <ul className="sidebar-lista">
       <li>Documentos</li>
@@ -150,7 +150,11 @@ const cambiarTema = (tema, e) => {
                 )}
 
                 <div className="mensaje-bloque">
-                  <div className={`mensaje ${m.autor}`}>{m.texto}</div>
+                 <div className={`mensaje ${m.autor}`}>
+                  {m.texto.split("\n").map((linea, idx) => (
+                <div key={idx}>{linea || <br />}</div>
+                  ))}
+                </div>
 
                   {/* Calificación — solo en mensajes del bot con id_monitoreo */}
                   {m.autor === "bot" && m.id_monitoreo && (

@@ -1,11 +1,13 @@
 import mysql.connector
+import os
 
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="cocacola345",
-        database="chat_buho_final"
+        host=os.getenv("MYSQLHOST"),
+        port=int(os.getenv("MYSQLPORT")),
+        user=os.getenv("MYSQLUSER"),
+        password=os.getenv("MYSQLPASSWORD"),
+        database=os.getenv("MYSQLDATABASE")
     )
 
 def ejecutar_query(query: str):

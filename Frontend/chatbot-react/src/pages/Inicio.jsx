@@ -8,8 +8,9 @@ function Inicio() {
   const navigate = useNavigate();
   const [cargando, setCargando] = useState(false);
 
-  if (cargando) {
-    return <LoadingScreen onFinish={() => navigate("/chat")} />;
+if (cargando) {
+  return <LoadingScreen onFinish={() => navigate("/chat", { replace: true })} />;
+
   }
 
   return (

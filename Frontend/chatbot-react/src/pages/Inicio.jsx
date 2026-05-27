@@ -27,11 +27,11 @@ function Inicio() {
         <div className="hero-texto">
           <h1>Chat Búho</h1>
           <p>¿Tienes dudas? ChatBúho te las resuelve</p>
-          <a href="#">
+          
             <button onClick={() => setCargando(true)}>
               Comenzar
             </button>
-          </a>
+          
         </div>
       </section>
     </div>

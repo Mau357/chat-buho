@@ -822,10 +822,16 @@ def validar_sql_select(sql: str):
     except Exception:
         return False
 
-
 def generar_sql(texto: str):
 
     categoria = clasificar_intencion(texto)
+
+    if categoria == "servicio_social":
+        return """
+SELECT pregunta, respuesta
+FROM PreguntasFrecuentes
+WHERE categoria = 'Servicio Social';
+""", 0
 
     prompt = PROMPTS_SQL.get(categoria)
 
@@ -846,7 +852,6 @@ def generar_sql(texto: str):
     sql = limpiar_sql(sql)
 
     if not validar_sql_select(sql):
-
         return "SELECT 'Consulta no válida' AS respuesta;", tokens
 
     return sql, tokens

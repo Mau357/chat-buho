@@ -80,7 +80,7 @@ Si pregunta horario, abre, abren, cierra, cierran, a qué hora, atienden, atenci
 Si pregunta teléfono, número, correo, email o contacto:
 => contacto
 
-Si habla de servicio social, horas de servicio, reportes de servicio, formatos, dónde hacer servicio o cuándo empiezo servicio:
+Si habla de dar de alta el servicio social, servicio social, horas de servicio, reportes de servicio, formatos, dónde hacer servicio o cuándo empiezo servicio:
 => servicio_social
 
 Si habla de puntos, DH, desarrollo humano, actividades culturales o eventos culturales:
@@ -903,4 +903,3 @@ def respuesta_sin_datos(pregunta: str) -> str:
         "No encontré información exacta sobre eso en la base de datos. "
         "Intenta hacer una pregunta más específica sobre un trámite, requisito, horario, aviso o departamento."
     )
-

@@ -114,6 +114,9 @@ def clasificar_intencion(texto: str):
 
     # 1. PRIORIDAD: problemas académicos/personales/emocionales
     palabras_tutorias = [
+        "estoy atorado",
+        "tengo muchos problemas",
+        "estoy muy estresado",
         "atorado",
         "atorada",
         "estresado",
@@ -966,7 +969,7 @@ def es_pregunta_identidad(texto: str) -> bool:
         "qué puedes hacer?",
         "quien es chatbuho",
         "quién es chatbuho",
-        "que informacion me puedes dar"
+        "que informacion me puedes dar  "
     ]
 
     return any(f in texto for f in frases)

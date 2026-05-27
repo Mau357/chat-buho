@@ -780,3 +780,109 @@
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.75; }
   100% { transform: translate(-50%, -50%) scale(40); opacity: 0; }
 }
+
+/* =========================
+   RESPONSIVE CELULAR
+========================= */
+@media (max-width: 768px) {
+  .pagina-chat.parent {
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .pagina-chat .div1 {
+    display: none;
+  }
+
+  .pagina-chat .columna-derecha {
+    height: 100dvh;
+    width: 100%;
+  }
+
+  .pagina-chat .chat-navbar {
+    padding: 8px 10px;
+  }
+
+  .pagina-chat .chat-titulo {
+    font-size: 16px;
+  }
+
+  .pagina-chat .btn-compartir {
+    display: none;
+  }
+
+  .pagina-chat .div2 {
+    flex: 1;
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  .pagina-chat .chat-box {
+    padding: 6px;
+    gap: 8px;
+  }
+
+  .pagina-chat .mensaje-wrapper {
+    max-width: 100%;
+  }
+
+  .pagina-chat .mensaje {
+    max-width: 82vw;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .pagina-chat .mensaje-wrapper.usuario {
+    align-self: flex-end;
+  }
+
+  .pagina-chat .mensaje-wrapper.bot {
+    align-self: flex-start;
+  }
+
+  .pagina-chat .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .pagina-chat .input-wrapper {
+    max-width: 100%;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .pagina-chat .input-chat {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .pagina-chat .button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .pagina-chat .aviso-ia {
+    font-size: 10px;
+    padding: 0 8px;
+  }
+
+  .pagina-chat .bienvenida {
+    padding: 20px 10px;
+  }
+
+  .pagina-chat .bienvenida h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .pagina-chat .preguntas-rapidas {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .pagina-chat .pregunta-btn {
+    width: 100%;
+  }
+}

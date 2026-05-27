@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from ..services.groq_service import generar_sql, formatear_respuesta, es_respuesta_sin_datos, respuesta_sin_datos
+from ..services.groq_service import generar_sql, formatear_respuesta, es_respuesta_sin_datos, respuesta_sin_datos, es_pregunta_identidad
 from ..database.conection import ejecutar_query, guardar_sin_respuesta, guardar_monitoreo, calificar_respuesta
 
 router = APIRouter()
@@ -16,6 +16,11 @@ class Calificacion(BaseModel):
 
 @router.post("/chat")
 def chat(mensaje: Mensaje):
+    if es_pregunta_identidad(mensaje.texto):
+        return {
+            "respuesta": "¡Hola! Soy Chat Búho 🦉, un asistente virtual del instituto. Puedo ayudarte a consultar información sobre trámites, requisitos, horarios, servicio social, biblioteca, inglés, tutorías, avisos y calendario escolar.",
+            "id_monitoreo": None
+        }
     # 1. Generar SQL
     sql, tokens_sql = generar_sql(mensaje.texto)
 

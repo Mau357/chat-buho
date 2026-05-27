@@ -80,7 +80,7 @@ Si pregunta horario, abre, abren, cierra, cierran, a qué hora, atienden, atenci
 Si pregunta teléfono, número, correo, email o contacto:
 => contacto
 
-Si habla de dar de alta el servicio social, servicio social, horas de servicio, reportes de servicio, formatos, dónde hacer servicio o cuándo empiezo servicio:
+Si habla deregistrar mi servicio social, dar de alta el servicio social, servicio social, horas de servicio, reportes de servicio, formatos, dónde hacer servicio o cuándo empiezo servicio:
 => servicio_social
 
 Si habla de puntos, DH, desarrollo humano, actividades culturales o eventos culturales:
@@ -181,6 +181,27 @@ def clasificar_intencion(texto: str):
 
     if any(p in texto_lower for p in palabras_estacionamiento):
         return "tramite"
+    
+        # 5. SERVICIO SOCIAL
+    palabras_servicio_social = [
+        "servicio social",
+        "registrar servicio",
+        "registrar mi servicio",
+        "dar de alta servicio",
+        "dar de alta mi servicio",
+        "alta servicio",
+        "liberar servicio",
+        "horas de servicio",
+        "reportes de servicio",
+        "formatos de servicio",
+        "donde hacer servicio",
+        "dónde hacer servicio",
+        "cuando empiezo servicio",
+        "cuándo empiezo servicio"
+    ]
+
+    if any(p in texto_lower for p in palabras_servicio_social):
+        return "servicio_social"
 
     # 4. IA como respaldo
     messages = [
@@ -436,7 +457,7 @@ JOIN Requisito r
 ON r.id_tramite = t.id_tramites
 WHERE t.tipo LIKE '%baja%';
 """
-PROMPT_SERVICIO_SOCIAL = """
+PROMPT_SERVICIO_SOCIAL = PROMPT_SERVICIO_SOCIAL = """
 Genera únicamente SQL SELECT válido para MySQL.
 
 Tabla:
@@ -450,9 +471,21 @@ PreguntasFrecuentes(
 La categoría correcta es:
 'Servicio Social'
 
+SINÓNIMOS:
+- registrar servicio social
+- dar de alta servicio social
+- alta de servicio social
+- liberar servicio social
+- formatos
+- reportes
+- horas
+- dónde hacerlo
+- cuándo empiezo
+
 Reglas:
 - Solo SELECT
-- Usa LIKE '%valor%'
+- Busca siempre dentro de categoria = 'Servicio Social'
+- Usa LIKE en pregunta, respuesta y palabrasClave
 - No expliques nada
 - Responde solo SQL
 
@@ -462,9 +495,15 @@ SELECT pregunta, respuesta
 FROM PreguntasFrecuentes
 WHERE categoria = 'Servicio Social'
 AND (
-    pregunta LIKE '%horas%'
-    OR respuesta LIKE '%horas%'
+    pregunta LIKE '%servicio social%'
+    OR respuesta LIKE '%servicio social%'
+    OR palabrasClave LIKE '%servicio social%'
+    OR pregunta LIKE '%formatos%'
+    OR palabrasClave LIKE '%formatos%'
+    OR pregunta LIKE '%horas%'
     OR palabrasClave LIKE '%horas%'
+    OR pregunta LIKE '%reportes%'
+    OR palabrasClave LIKE '%reportes%'
 );
 """
 PROMPT_DESARROLLO_HUMANO = """
@@ -903,3 +942,24 @@ def respuesta_sin_datos(pregunta: str) -> str:
         "No encontré información exacta sobre eso en la base de datos. "
         "Intenta hacer una pregunta más específica sobre un trámite, requisito, horario, aviso o departamento."
     )
+
+def es_pregunta_identidad(texto: str) -> bool:
+    texto = texto.lower()
+
+    frases = [
+        "quien eres",
+        "quién eres",
+        "que eres",
+        "qué eres",
+        "que haces",
+        "qué haces",
+        "para que sirves",
+        "para qué sirves",
+        "que puedes hacer",
+        "qué puedes hacer",
+        "qué puedes hacer?",
+        "quien es chatbuho",
+        "quién es chatbuho"
+    ]
+
+    return any(f in texto for f in frases)

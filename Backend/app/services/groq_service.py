@@ -965,7 +965,8 @@ def es_pregunta_identidad(texto: str) -> bool:
         "qué puedes hacer",
         "qué puedes hacer?",
         "quien es chatbuho",
-        "quién es chatbuho"
+        "quién es chatbuho",
+        "que informacion me puedes dar"
     ]
 
     return any(f in texto for f in frases)

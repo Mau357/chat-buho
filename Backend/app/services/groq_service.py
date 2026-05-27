@@ -457,7 +457,7 @@ JOIN Requisito r
 ON r.id_tramite = t.id_tramites
 WHERE t.tipo LIKE '%baja%';
 """
-PROMPT_SERVICIO_SOCIAL = PROMPT_SERVICIO_SOCIAL = """
+PROMPT_SERVICIO_SOCIAL = """
 Genera únicamente SQL SELECT válido para MySQL.
 
 Tabla:

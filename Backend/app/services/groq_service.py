@@ -184,6 +184,7 @@ def clasificar_intencion(texto: str):
     
         # 5. SERVICIO SOCIAL
     palabras_servicio_social = [
+        "me puedes ayudar a registrar mi servicio social",
         "servicio social",
         "registrar servicio",
         "registrar mi servicio",
